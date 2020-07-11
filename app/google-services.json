@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "736431371967",
+    "firebase_url": "https://cherrypie-60309.firebaseio.com",
+    "project_id": "cherrypie-60309",
+    "storage_bucket": "cherrypie-60309.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736431371967:android:fba0b7c117e9e4ec75f80a",
+        "android_client_info": {
+          "package_name": "com.cherry.cherrypie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736431371967-qldbaa4s6tsf4kn9j3h2dejr0h2btdn1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwtffqyme8KMUgmP_5F8AQed6JDc3Cxms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736431371967-qldbaa4s6tsf4kn9j3h2dejr0h2btdn1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
@@ -16,7 +17,23 @@
             android:layout_height="wrap_content"
             android:id="@+id/searchToolBar"
             android:background="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <TabWidget
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            app:tabMode="fixed"
+            android:gravity="right"
+            app:tabGravity="fill"
+            android:background="@color/colorPrimary" >
+
+            <Button
+                android:id="@+id/profile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_baseline_person_24" />
+
+        </TabWidget>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -54,8 +71,8 @@
                     android:id="@+id/mainRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="6dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
