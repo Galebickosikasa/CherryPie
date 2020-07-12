@@ -31,6 +31,11 @@ class MainAdapter (context : Context): RecyclerView.Adapter<MainAdapter.ViewItem
         notifyItemChanged (itemCount - 1)
     }
 
+    fun clearItems () {
+        itemList.clear ()
+        notifyDataSetChanged ()
+    }
+
     inner class ViewItemHolder internal constructor (itemView: View): ViewHolder (itemView) {
         var img : ImageView = itemView.findViewById (R.id.food_img)
         var name : TextView = itemView.findViewById (R.id.food_name)

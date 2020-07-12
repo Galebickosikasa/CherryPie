@@ -13,6 +13,8 @@ class FoodItem {
         this.name = name
     }
 
+    constructor()
+
     override fun toString(): String {
         return "FoodItem(url='$url', name='$name')"
     }
