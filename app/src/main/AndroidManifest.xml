@@ -20,29 +20,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
-            android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".LoginActivity">
-            <intent-filter>
-                <action android:name="com.cherry.cherrypie.LoginActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".RegisterActivity">
-            <intent-filter>
-                <action android:name="com.cherry.cherrypie.RegisterActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".AddFoodActivity">
-            <intent-filter>
-                <action android:name="com.cherry.cherrypie.AddFoodActivity" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>
