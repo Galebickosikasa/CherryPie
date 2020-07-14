@@ -1,15 +1,20 @@
 package com.cherry.cherrypie
 
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNav : BottomNavigationView
     private lateinit var cameraFragment : CameraFragment
     private lateinit var videoFragment: VideoFragment
     private lateinit var profileFragment: ProfileFragment
+    private lateinit var mAuth : FirebaseAuth
+    private var user : FirebaseUser? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         videoFragment = VideoFragment ()
         profileFragment = ProfileFragment ()
         supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
+        mAuth = FirebaseAuth.getInstance ()
 
         bottomNav.setOnNavigationItemSelectedListener {
                 var fragment: Fragment? = null
@@ -30,7 +36,13 @@ class MainActivity : AppCompatActivity() {
                         fragment = cameraFragment
                     }
                     R.id.profile -> {
-                        fragment = profileFragment
+                        if (user == null) {
+                            val intent = Intent (Constants.LOGIN_ACTIVITY_PATH)
+                            startActivityForResult (intent, 1)
+                            return@setOnNavigationItemSelectedListener true
+                        } else {
+                            fragment = profileFragment
+                        }
                     }
                 }
                 supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, fragment!!).commit ()
@@ -38,5 +50,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            1 -> {
+                user = mAuth.currentUser
+                if (user != null) {
+                    supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, profileFragment).commit ()
+                }
+            }
+        }
+    }
 
 }

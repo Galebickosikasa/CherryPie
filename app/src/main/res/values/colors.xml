@@ -6,4 +6,9 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="yellow">#FFEB3B</color>
+
+    <color name="darkGrey">#171717</color>
+    <color name="lightGrey">#4A4A4A</color>
+    <color name="ultraLightGrey">#B1AFAF</color>
+    <color name="mediumGrey">#202020</color>
 </resources>
