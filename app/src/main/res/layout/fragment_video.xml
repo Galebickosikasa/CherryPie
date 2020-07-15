@@ -5,16 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="250dp"
-        android:text="U"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:gravity="center"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youTubePlayerView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:autoPlay="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

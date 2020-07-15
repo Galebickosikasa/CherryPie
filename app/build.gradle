@@ -51,6 +51,8 @@ dependencies {
     implementation 'br.com.simplepass:loading-button-android:2.2.0'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.23'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
