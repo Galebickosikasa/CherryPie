@@ -52,6 +52,7 @@ class RegisterActivity : AppCompatActivity() {
         userMap["uid"] = currentUserID
         userMap["username"] = userName
         userMap["email"] = userEmail
+        userMap["image"] = Constants.PIKACHU_IMAGE_PATH
 
         usersReference.child(currentUserID).setValue(userMap)
             .addOnCompleteListener { task ->

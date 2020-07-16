@@ -6,9 +6,13 @@ import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
+import com.theartofdev.edmodo.cropper.CropImage
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bottomNav : BottomNavigationView
@@ -27,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         profileFragment = ProfileFragment ()
         supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
         mAuth = FirebaseAuth.getInstance ()
+        user = mAuth.currentUser
 
         bottomNav.setOnNavigationItemSelectedListener {
                 var fragment: Fragment? = null
@@ -60,6 +65,9 @@ class MainActivity : AppCompatActivity() {
                 if (user != null) {
                     supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, profileFragment).commit ()
                 }
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                profileFragment.photoCrop (resultCode, data)
             }
         }
     }

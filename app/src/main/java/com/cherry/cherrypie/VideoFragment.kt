@@ -33,14 +33,14 @@ class VideoFragment : Fragment(), YouTubePlayerFullScreenListener {
         bottomNavigationView = activity!!.findViewById (R.id.bottom_nav)
         youTubePlayerView = container.findViewById (R.id.youTubePlayerView)
 
-        youTubePlayerView.addYouTubePlayerListener (object : AbstractYouTubePlayerListener () {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                super.onReady(youTubePlayer)
-                val videoID = "xIBiJ_SzJTA"
-                youTubePlayer.loadVideo (videoID, 0F)
-            }
-        })
-        youTubePlayerView.addFullScreenListener (this)
+//        youTubePlayerView.addYouTubePlayerListener (object : AbstractYouTubePlayerListener () {
+//            override fun onReady(youTubePlayer: YouTubePlayer) {
+//                super.onReady(youTubePlayer)
+//                val videoID = "xIBiJ_SzJTA"
+//                youTubePlayer.loadVideo (videoID, 0F)
+//            }
+//        })
+//        youTubePlayerView.addFullScreenListener (this)
     }
 
     override fun onYouTubePlayerEnterFullScreen() { // TODO
@@ -53,7 +53,7 @@ class VideoFragment : Fragment(), YouTubePlayerFullScreenListener {
 
     override fun onYouTubePlayerExitFullScreen() { // TODO
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//        toolbar.isVisible = true
+//        toolbar.isVisible = true  
 //        bottomNavigationView.isVisible = true
     }
 }
