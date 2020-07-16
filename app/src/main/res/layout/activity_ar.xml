@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress AndroidDomInspection -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    style="@style/AppTheme"
+    tools:context=".MainActivity">
+
+
+    <fragment
+        android:id="@+id/scene_form_fragment"
+        android:name="com.cherry.cherrypie.ArActivity$WritingArFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="Instantiatable" />
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/eliot"
+                android:src="@drawable/lil_eliot"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/darlin"
+                android:src="@drawable/lil_darlin"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/angela"
+                android:src="@drawable/lil_angela"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/dominika"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/lil_dominika" />
+
+            <ImageView
+                android:id="@+id/mister"
+                android:src="@drawable/lil_mister"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/robot"
+                android:src="@drawable/lil_robot"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/sister"
+                android:src="@drawable/lil_sister"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+            <ImageView
+                android:id="@+id/dad"
+                android:src="@drawable/lil_dad"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom | center_horizontal"
+        android:layout_margin="16dp"
+        android:background="#ffffff"
+        android:backgroundTint="#ffffff"
+        android:backgroundTintMode="add"
+        android:clickable="true"
+        android:outlineAmbientShadowColor="@color/white"
+        android:outlineSpotShadowColor="@color/white"
+        style="@style/AppTheme"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/ic_baseline_camera_24" />
+
+</FrameLayout>

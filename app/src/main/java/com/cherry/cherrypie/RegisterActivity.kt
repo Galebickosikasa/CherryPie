@@ -1,11 +1,10 @@
 package com.cherry.cherrypie
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -34,9 +33,9 @@ class RegisterActivity : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     task.addOnSuccessListener {
                         saveUserInfo(userName, userEmail)
-                        FirebaseAuth.getInstance().signInWithEmailAndPassword (userEmail, userPassword)
+                        FirebaseAuth.getInstance().signInWithEmailAndPassword(userEmail, userPassword)
                     }.addOnFailureListener {
-                        Log.e ("kek", it.toString ())
+                        Log.e("kek", it.toString())
                         Toast.makeText(this, "Что-то пошло не так (", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -58,13 +57,11 @@ class RegisterActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 task.addOnSuccessListener {
                     Toast.makeText(this, "Регистрация успешна!", Toast.LENGTH_SHORT).show()
-                    finish ()
+                    finish()
                 }.addOnFailureListener {
-                    Log.e ("kek", it.toString ())
+                    Log.e("kek", it.toString())
                     Toast.makeText(this, "Что-то пошло не так (", Toast.LENGTH_SHORT).show()
                 }
             }
-
-
     }
 }
