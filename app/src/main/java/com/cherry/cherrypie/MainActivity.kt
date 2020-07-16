@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.camera -> {
                     startActivity(Intent(this@MainActivity, ArActivity::class.java))
+                    return@setOnNavigationItemSelectedListener true
                 }
                 R.id.profile -> {
                     if (user == null) {

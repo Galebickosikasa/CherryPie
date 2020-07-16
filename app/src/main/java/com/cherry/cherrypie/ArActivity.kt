@@ -4,10 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
-import android.graphics.ImageFormat
 import android.icu.text.SimpleDateFormat
-import android.media.Image
-import android.media.ImageReader
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -35,10 +32,10 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.nio.Buffer
 import java.util.*
 import java.util.function.Consumer
 
+@Suppress("DEPRECATION")
 class ArActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var eliotRenderable: ViewRenderable
     lateinit var darlinRenderable: ViewRenderable
@@ -352,12 +349,11 @@ class ArActivity : AppCompatActivity(), View.OnClickListener {
                 ByteArrayOutputStream().use { outputData ->
                     bitmap.compress(CompressFormat.JPEG, 85, outputData)
                     outputData.writeTo(outputStream)
+                    outputStream.flush()
+                    outputStream.close()
                     MediaStore.Images.Media.insertImage(
                         contentResolver, bitmap, generateFilename(), "ar_photo"
                     )
-                    outputStream.flush()
-                    outputStream.close()
-
                 }
             }
         } catch (ex: IOException) {
@@ -374,7 +370,6 @@ class ArActivity : AppCompatActivity(), View.OnClickListener {
             view.width, view.height,
             Bitmap.Config.ARGB_8888
         )
-
 
         val handlerThread = HandlerThread("PixelCopier")
         handlerThread.start()
@@ -420,7 +415,7 @@ class ArActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 handlerThread.quitSafely()
             },
-            Handler(handlerThread.looper))
-
+            Handler(handlerThread.looper)
+        )
     }
 }
