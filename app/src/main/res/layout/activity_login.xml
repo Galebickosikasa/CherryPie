@@ -16,7 +16,7 @@
         android:text="@string/login"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         android:textColor="@color/ultraLightGrey"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
@@ -35,7 +35,8 @@
             android:id="@+id/email_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:textColor="@color/ultraLightGrey" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,7 +55,8 @@
             android:id="@+id/password_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/ultraLightGrey" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

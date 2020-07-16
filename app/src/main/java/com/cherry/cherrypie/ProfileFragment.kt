@@ -24,6 +24,7 @@ import com.google.firebase.storage.StorageReference
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -32,54 +33,69 @@ import kotlin.collections.HashMap
 
 class ProfileFragment : Fragment() {
     private lateinit var container: ViewGroup
-    private lateinit var userImage : CircleImageView
-    private lateinit var username : TextView
-    private lateinit var mAuth : FirebaseAuth
-    private lateinit var user : FirebaseUser
-    private lateinit var storage : FirebaseStorage
-    private lateinit var storageReference : StorageReference
-    private lateinit var database : FirebaseDatabase
-    private lateinit var databaseReference : DatabaseReference
-    private lateinit var userInfo : HashMap<String, Any>
+    private lateinit var userImage: CircleImageView
+    private lateinit var username: TextView
+    private lateinit var mAuth: FirebaseAuth
+    private lateinit var user: FirebaseUser
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageReference: StorageReference
+    private lateinit var database: FirebaseDatabase
+    private lateinit var databaseReference: DatabaseReference
+    private lateinit var userInfo: HashMap<String, Any>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         this.container = container!!
-        return inflater.inflate (R.layout.fragment_profile, container, false)
+        return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-        userImage = container.findViewById (R.id.userImage)
-        username = container.findViewById (R.id.username)
-        mAuth = FirebaseAuth.getInstance ()
+        userImage = container.findViewById(R.id.userImage)
+        username = container.findViewById(R.id.username)
+        mAuth = FirebaseAuth.getInstance()
         user = mAuth.currentUser!!
-        storage = FirebaseStorage.getInstance ()
-        database = FirebaseDatabase.getInstance ()
-        databaseReference = database.getReference (Constants.USERS_PATH + user.uid)
+        storage = FirebaseStorage.getInstance()
+        database = FirebaseDatabase.getInstance()
+        databaseReference = database.getReference(Constants.USERS_PATH + user.uid)
 
-        databaseReference.addListenerForSingleValueEvent (object : ValueEventListener {
+        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 userInfo = snapshot.value as HashMap<String, Any>
                 try {
-                    Glide.with (activity!!).load (userInfo["image"]).into (userImage)
-                } catch (e : NullPointerException) {
-                    Log.e ("kek", "ooops")
+                    Glide.with(activity!!).load(userInfo["image"]).into(userImage)
+                } catch (e: NullPointerException) {
+                    Log.e("kek", "ooops")
                 }
             }
         })
 
         userImage.setOnClickListener {
-            CropImage.activity().setCropShape(CropImageView.CropShape.OVAL).setAspectRatio( 1, 1)
+            CropImage.activity().setCropShape(CropImageView.CropShape.OVAL).setAspectRatio(1, 1)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(activity!!)
         }
+
+        sign_out_button.setOnClickListener {
+            signOut()
+        }
+    }
+
+    private fun signOut() {
+        FirebaseAuth.getInstance().signOut()
+
+        val intent = Intent(context, LoginActivity::class.java)
+        startActivity(intent)
     }
 
     private fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
         val bytes = ByteArrayOutputStream()
-        inImage.compress (Bitmap.CompressFormat.JPEG, 100, bytes)
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val path = MediaStore.Images.Media.insertImage(
             inContext.contentResolver,
             inImage,
@@ -89,13 +105,16 @@ class ProfileFragment : Fragment() {
         return Uri.parse(path)
     }
 
-    fun photoCrop (resultCode: Int, data: Intent?) {
+    fun photoCrop(resultCode: Int, data: Intent?) {
         val result = CropImage.getActivityResult(data)
         if (resultCode == Activity.RESULT_OK) {
             val resultUri: Uri = result.uri
             var bitmap: Bitmap? = null
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(activity!!).contentResolver, resultUri)
+                bitmap = MediaStore.Images.Media.getBitmap(
+                    Objects.requireNonNull(activity!!).contentResolver,
+                    resultUri
+                )
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -105,23 +124,24 @@ class ProfileFragment : Fragment() {
             original.compress(Bitmap.CompressFormat.JPEG, 20, out)
             val decoded =
                 BitmapFactory.decodeStream(ByteArrayInputStream(out.toByteArray()))
-            val uri = getImageUri (activity!!, decoded)
-            uploadImage (uri)
+            val uri = getImageUri(activity!!, decoded)
+            uploadImage(uri)
         }
     }
 
-    private fun uploadImage (uri: Uri) {
-        storageReference = storage.getReference ("${user.uid}/${Constants.PHOTO_PATH}")
-        storageReference.putFile (uri).addOnSuccessListener {
+    private fun uploadImage(uri: Uri) {
+        storageReference = storage.getReference("${user.uid}/${Constants.PHOTO_PATH}")
+        storageReference.putFile(uri).addOnSuccessListener {
             storageReference.downloadUrl.addOnSuccessListener { uri ->
-                val url = uri.toString ()
+                val url = uri.toString()
                 userInfo["image"] = url
-                databaseReference.setValue (userInfo).addOnSuccessListener {
-                    Glide.with (activity!!).load (url).into (userImage)
-                    Toast.makeText (activity, "Фотография успешно загружена!", Toast.LENGTH_SHORT).show ()
+                databaseReference.setValue(userInfo).addOnSuccessListener {
+                    Glide.with(activity!!).load(url).into(userImage)
+                    Toast.makeText(activity, "Фотография успешно загружена!", Toast.LENGTH_SHORT)
+                        .show()
                 }.addOnFailureListener {
-                    Log.e ("kek", it.toString ())
-                    Toast.makeText (activity, "Что-то пошло не так (", Toast.LENGTH_SHORT).show ()
+                    Log.e("kek", it.toString())
+                    Toast.makeText(activity, "Что-то пошло не так (", Toast.LENGTH_SHORT).show()
                 }
             }
         }
