@@ -35,6 +35,7 @@ class ProfileFragment : Fragment() {
     private lateinit var container: ViewGroup
     private lateinit var userImage: CircleImageView
     private lateinit var username: TextView
+    private lateinit var userEmail: TextView
     private lateinit var mAuth: FirebaseAuth
     private lateinit var user: FirebaseUser
     private lateinit var storage: FirebaseStorage
@@ -56,6 +57,7 @@ class ProfileFragment : Fragment() {
         super.onStart()
         userImage = container.findViewById(R.id.userImage)
         username = container.findViewById(R.id.username)
+        userEmail = container.findViewById(R.id.email)
         mAuth = FirebaseAuth.getInstance()
         user = mAuth.currentUser!!
         storage = FirebaseStorage.getInstance()
@@ -80,6 +82,8 @@ class ProfileFragment : Fragment() {
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(activity!!)
         }
+
+        userEmail.text = user.email
 
         sign_out_button.setOnClickListener {
             signOut()
