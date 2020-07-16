@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/AppTheme"
-    tools:context=".MainActivity">
-
+    tools:context=".ArActivity">
 
     <fragment
         android:id="@+id/scene_form_fragment"
@@ -92,6 +91,7 @@
         android:outlineSpotShadowColor="@color/white"
         style="@style/AppTheme"
         app:fabSize="normal"
+        app:borderWidth="0dp"
         app:srcCompat="@drawable/ic_baseline_camera_24" />
 
 </FrameLayout>

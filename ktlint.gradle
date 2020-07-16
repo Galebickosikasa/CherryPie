@@ -1,0 +1,27 @@
+repositories {
+    jcenter()
+}
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    ktlint 'com.pinterest:ktlint:0.37.1'
+    ktlint 'ru.nobird.android.ktlint:rules:1.0.0'
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args = ["--disabled_rules=no-multi-spaces,package-name", "src/main/**/*.kt"]
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "verification") {
+    description = "Format Kotlin code style."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args = ["-F", "--disabled_rules=no-multi-spaces,package-name", "src/main/**/*.kt"]
+}
