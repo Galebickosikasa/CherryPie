@@ -18,9 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ArActivity">
 
-        </activity>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation">
@@ -43,6 +41,13 @@
         <activity android:name=".RegisterActivity">
             <intent-filter>
                 <action android:name="com.cherry.cherrypie.RegisterActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ArActivity">
+            <intent-filter>
+                <action android:name="com.cherry.cherrypie.ArActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
