@@ -70,6 +70,7 @@ class ProfileFragment : Fragment() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userInfo = snapshot.value as HashMap<String, Any>
                 try {
+                    username.text = userInfo["username"] as CharSequence?
                     Glide.with(activity!!).load(userInfo["image"]).into(userImage)
                 } catch (e: NullPointerException) {
                     Log.e("kek", "ooops")
@@ -141,11 +142,11 @@ class ProfileFragment : Fragment() {
                 userInfo["image"] = url
                 databaseReference.setValue(userInfo).addOnSuccessListener {
                     Glide.with(activity!!).load(url).into(userImage)
-                    Toast.makeText(activity, "Фотография успешно загружена!", Toast.LENGTH_SHORT)
+                    Toast.makeText(activity, getString(R.string.uploading_is_successful), Toast.LENGTH_SHORT)
                         .show()
                 }.addOnFailureListener {
                     Log.e("kek", it.toString())
-                    Toast.makeText(activity, "Что-то пошло не так (", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.fail_message), Toast.LENGTH_SHORT).show()
                 }
             }
         }

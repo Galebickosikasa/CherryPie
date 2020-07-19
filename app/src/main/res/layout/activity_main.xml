@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.AppBarLayout
+         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -16,7 +16,8 @@
                 android:id="@+id/main_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
-                android:background="@color/colorPrimary"
+                android:background="@color/darkGrey"
+                app:titleTextColor="@color/ultraLightGrey"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:title="kek" />
 

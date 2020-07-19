@@ -56,11 +56,11 @@ class RegisterActivity : AppCompatActivity() {
         usersReference.child(currentUserID).setValue(userMap)
             .addOnCompleteListener { task ->
                 task.addOnSuccessListener {
-                    Toast.makeText(this, "Регистрация успешна!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.registration_is_successful), Toast.LENGTH_SHORT).show()
                     finish()
                 }.addOnFailureListener {
                     Log.e("kek", it.toString())
-                    Toast.makeText(this, "Что-то пошло не так (", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.fail_message), Toast.LENGTH_SHORT).show()
                 }
             }
     }
