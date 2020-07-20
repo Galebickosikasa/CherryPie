@@ -7,4 +7,7 @@
     <string name="sign_up">Sign up</string>
     <string name="login">Login</string>
     <string name="sign_out">Sign out</string>
+    <string name="registration_is_successful">Регистрация успешна!</string>
+    <string name="fail_message">Что-то пошло не так(</string>
+    <string name="uploading_is_successful">Фотография успешно загружена!</string>
 </resources>

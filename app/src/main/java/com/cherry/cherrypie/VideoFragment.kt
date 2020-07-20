@@ -16,7 +16,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 class VideoFragment : Fragment(), YouTubePlayerFullScreenListener {
     private lateinit var youTubePlayerView: YouTubePlayerView
     private lateinit var container: ViewGroup
-    private lateinit var toolbar: Toolbar
+//  private lateinit var toolbar: Toolbar
     private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,7 +26,8 @@ class VideoFragment : Fragment(), YouTubePlayerFullScreenListener {
 
     override fun onStart() {
         super.onStart()
-        toolbar = activity!!.findViewById(R.id.main_toolbar)
+//        toolbar = activity!!.findViewById(R.id.main_toolbar)
+//        toolbar.isVisible = false
         bottomNavigationView = activity!!.findViewById(R.id.bottom_nav)
         youTubePlayerView = container.findViewById(R.id.youTubePlayerView)
 
@@ -42,7 +43,7 @@ class VideoFragment : Fragment(), YouTubePlayerFullScreenListener {
 
     override fun onYouTubePlayerEnterFullScreen() { // TODO
         Log.e("kek", "full")
-        toolbar.isVisible = false
+//        toolbar.isVisible = false
 //        bottomNavigationView.isVisible = false
 //        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     }
