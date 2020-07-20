@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,8 +29,8 @@ import kotlinx.android.synthetic.main.fragment_profile.*
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.net.URL
 import java.util.*
-import kotlin.collections.HashMap
 
 class ProfileFragment : Fragment() {
     private lateinit var container: ViewGroup
@@ -69,14 +70,14 @@ class ProfileFragment : Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 userInfo = snapshot.value as HashMap<String, Any>
-                try {
-                    username.text = userInfo["username"] as CharSequence?
-                    Glide.with(activity!!).load(userInfo["image"]).into(userImage)
-                } catch (e: NullPointerException) {
-                    Log.e("kek", "ooops")
-                }
             }
         })
+
+        val sp = activity!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        val nickname = sp.getString("username", "")
+        val smth = sp.getString("image", "")
+        userImage.setImageBitmap(decodeBase64(smth))
+        username.text = nickname
 
         userImage.setOnClickListener {
             CropImage.activity().setCropShape(CropImageView.CropShape.OVAL).setAspectRatio(1, 1)
@@ -96,6 +97,20 @@ class ProfileFragment : Fragment() {
 
         val intent = Intent(context, LoginActivity::class.java)
         startActivity(intent)
+    }
+
+    fun encodeTobase64(image: Bitmap): String? {
+        val baos = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.PNG, 100, baos)
+        val b = baos.toByteArray()
+        val imageEncoded = Base64.encodeToString(b, Base64.DEFAULT)
+        Log.d("Image Log:", imageEncoded)
+        return imageEncoded
+    }
+
+    fun decodeBase64(input: String?): Bitmap? {
+        val decodedByte: ByteArray = Base64.decode(input, 0)
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
     }
 
     private fun getImageUri(inContext: Context, inImage: Bitmap): Uri {
@@ -127,8 +142,7 @@ class ProfileFragment : Fragment() {
             val original = bitmap!!
             val out = ByteArrayOutputStream()
             original.compress(Bitmap.CompressFormat.JPEG, 20, out)
-            val decoded =
-                BitmapFactory.decodeStream(ByteArrayInputStream(out.toByteArray()))
+            val decoded = BitmapFactory.decodeStream(ByteArrayInputStream(out.toByteArray()))
             val uri = getImageUri(activity!!, decoded)
             uploadImage(uri)
         }
@@ -140,13 +154,26 @@ class ProfileFragment : Fragment() {
             storageReference.downloadUrl.addOnSuccessListener { uri ->
                 val url = uri.toString()
                 userInfo["image"] = url
+
+                val t = Thread(Runnable {
+                    val _url = URL(url)
+                    val bitmap = BitmapFactory.decodeStream(_url.openConnection().getInputStream())
+                    val sp = activity!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+                    sp.edit().putString("image", encodeTobase64(bitmap)).apply()
+                })
+                t.start()
+
                 databaseReference.setValue(userInfo).addOnSuccessListener {
                     Glide.with(activity!!).load(url).into(userImage)
-                    Toast.makeText(activity, getString(R.string.uploading_is_successful), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(
+                        activity,
+                        getString(R.string.uploading_is_successful),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }.addOnFailureListener {
                     Log.e("kek", it.toString())
-                    Toast.makeText(activity, getString(R.string.fail_message), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.fail_message), Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }

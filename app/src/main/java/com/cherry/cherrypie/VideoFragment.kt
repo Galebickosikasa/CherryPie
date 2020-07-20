@@ -9,48 +9,39 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class VideoFragment : Fragment(), YouTubePlayerFullScreenListener {
-    private lateinit var youTubePlayerView: YouTubePlayerView
+class VideoFragment : Fragment() {
     private lateinit var container: ViewGroup
-//  private lateinit var toolbar: Toolbar
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit var recycler: RecyclerView
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         this.container = container!!
         return inflater.inflate(R.layout.fragment_video, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-//        toolbar = activity!!.findViewById(R.id.main_toolbar)
-//        toolbar.isVisible = false
         bottomNavigationView = activity!!.findViewById(R.id.bottom_nav)
-        youTubePlayerView = container.findViewById(R.id.youTubePlayerView)
+        recycler = container.findViewById(R.id.season_recycler)
+        recycler.layoutManager = LinearLayoutManager(activity)
+        val adapter = SeasonAdapter(activity!!)
+        recycler.adapter = adapter
 
-//        youTubePlayerView.addYouTubePlayerListener (object : AbstractYouTubePlayerListener () {
-//            override fun onReady(youTubePlayer: YouTubePlayer) {
-//                super.onReady(youTubePlayer)
-//                val videoID = "xIBiJ_SzJTA"
-//                youTubePlayer.loadVideo (videoID, 0F)
-//            }
-//        })
-//        youTubePlayerView.addFullScreenListener (this)
+        adapter.addItem(SeasonKek(1))
+        adapter.addItem(SeasonKek(2))
+        adapter.addItem(SeasonKek(3))
+        adapter.addItem(SeasonKek(4))
+
     }
 
-    override fun onYouTubePlayerEnterFullScreen() { // TODO
-        Log.e("kek", "full")
-//        toolbar.isVisible = false
-//        bottomNavigationView.isVisible = false
-//        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-    }
-
-    override fun onYouTubePlayerExitFullScreen() { // TODO
-        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-//        toolbar.isVisible = true  
-//        bottomNavigationView.isVisible = true
-    }
 }
