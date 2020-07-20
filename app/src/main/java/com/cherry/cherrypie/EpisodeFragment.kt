@@ -2,7 +2,6 @@ package com.cherry.cherrypie
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,19 +16,15 @@ class EpisodeFragment : Fragment() {
     private lateinit var container: ViewGroup
     private lateinit var adapter: EpisodeAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.container = container!!
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                (activity as MainActivity).backFromEpisode()
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback (true) {
+            override fun handleOnBackPressed () {
+                (activity as MainActivity).backFromEpisode ()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-        return inflater.inflate(R.layout.fragment_episode, container, false)
+        requireActivity ().onBackPressedDispatcher.addCallback (this, callback)
+        return inflater.inflate (R.layout.fragment_episode, container, false)
     }
 
     override fun onStart() {
