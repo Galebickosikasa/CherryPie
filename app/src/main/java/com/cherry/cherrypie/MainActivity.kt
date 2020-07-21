@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
     private lateinit var database : FirebaseDatabase
     private lateinit var databaseReference : DatabaseReference
     private var user : FirebaseUser? = null
-    var progressMap : HashMap<String, Any> = hashMapOf ()
+    var progressMap : ArrayList<Int> = arrayListOf ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate (savedInstanceState)
@@ -73,10 +73,11 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
                     Log.e ("kek", snapshot.toString ())
-                    progressMap = snapshot.value as HashMap<String, Any>
+                    progressMap = snapshot.value as ArrayList<Int>
                 } catch (e : TypeCastException) {
-                    for (i in 1..4) progressMap[i.toString ()] = 0
+                    for (i in 1..4) progressMap.add (0)
                 }
+                Log.e ("kek", progressMap.toString ())
             }
         })
     }

@@ -82,9 +82,9 @@ class WatchFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        var num = ((activity as MainActivity).progressMap[s.toString ()]!! as Int)
+        var num = (activity as MainActivity).progressMap[s]
         num = num or (1 shl e)
-        (activity as MainActivity).progressMap[s.toString ()] = num
+        (activity as MainActivity).progressMap[s] = num
         (activity as MainActivity).updProgress ()
         val browserIntent = Intent (Intent.ACTION_VIEW, Uri.parse (url))
         startActivity (browserIntent)

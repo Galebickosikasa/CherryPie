@@ -84,11 +84,11 @@ class ProfileFragment : Fragment() {
         progress3.max = 10
         progress4.max = 13
 
-        val hm = (activity as MainActivity).progressMap as HashMap<String, Int>
-        progress1.progress = hm["1"]!!.countOneBits ()
-        progress2.progress = hm["2"]!!.countOneBits ()
-        progress3.progress = hm["3"]!!.countOneBits ()
-        progress4.progress = hm["4"]!!.countOneBits ()
+        val hm = (activity as MainActivity).progressMap
+        progress1.progress = hm[1].countOneBits ()
+        progress2.progress = hm[2].countOneBits ()
+        progress3.progress = hm[3].countOneBits ()
+        progress4.progress = hm[4].countOneBits ()
 
         val sp = activity!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val nickname = sp.getString("username", "")
