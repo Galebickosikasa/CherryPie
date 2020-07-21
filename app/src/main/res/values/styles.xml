@@ -6,4 +6,9 @@
         <item name="colorAccent">#ffffff</item>
     </style>
 
+    <style name="shapeableImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5%</item>
+    </style>
+
 </resources>
