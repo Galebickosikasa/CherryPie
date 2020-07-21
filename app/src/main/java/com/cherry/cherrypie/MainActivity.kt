@@ -3,6 +3,7 @@ package com.cherry.cherrypie
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
         mAuth = FirebaseAuth.getInstance ()
         user = mAuth.currentUser
+        for (i in 0..4) progressMap.add (0)
         if (user != null) syncProgress ()
 
         bottomNav.setOnNavigationItemSelectedListener {
@@ -73,7 +75,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
                 try {
                     progressMap = snapshot.value as ArrayList<Int>
                 } catch (e : TypeCastException) {
-                    for (i in 0..5) progressMap.add (0)
+                    Log.e ("kek", e.toString ())
                 }
             }
         })
@@ -90,8 +92,8 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
             1 -> {
                 user = mAuth.currentUser
                 if (user != null) {
-                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, profileFragment).commit()
                     syncProgress ()
+                    supportFragmentManager.beginTransaction().replace(R.id.fragment_container, profileFragment).commit()
                 }
             }
             CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {

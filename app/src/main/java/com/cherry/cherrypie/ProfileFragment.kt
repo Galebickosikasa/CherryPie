@@ -111,7 +111,6 @@ class ProfileFragment : Fragment() {
 
     private fun signOut() {
         FirebaseAuth.getInstance().signOut()
-
         val intent = Intent(context, LoginActivity::class.java)
         startActivity(intent)
     }
