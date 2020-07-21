@@ -40,17 +40,20 @@ class EpisodeAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>() {
         (holder as EpisodeHolder).bind(episodeList[position])
     }
 
-    inner class EpisodeHolder internal constructor(itemView: View) : ViewHolder(itemView),
-        View.OnClickListener {
-        private val tv: TextView = itemView.findViewById(R.id.episode_title)
+    inner class EpisodeHolder internal constructor(itemView: View) : ViewHolder(itemView), View.OnClickListener {
+        private val tv: TextView = itemView.findViewById (R.id.episode_title)
 
         override fun onClick(v: View?) {
             val position = adapterPosition
-            if (position != RecyclerView.NO_POSITION) onEpisodeClick.onEpisodeClick(position)
+            if (position != RecyclerView.NO_POSITION) onEpisodeClick.onEpisodeClick (position)
         }
 
         fun bind(item: EpisodeKek) {
             tv.text = "${item.num} серия"
+        }
+
+        init {
+            itemView.setOnClickListener (this)
         }
     }
 

@@ -33,7 +33,7 @@ class EpisodeFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(activity!!)
         adapter = EpisodeAdapter(activity!!)
         recycler.adapter = adapter
-        val sp = activity!!.getSharedPreferences("season", Context.MODE_PRIVATE)
+        val sp = activity!!.getSharedPreferences("video", Context.MODE_PRIVATE)
         val season = sp.getInt("season", -1)
 //        Log.e ("kek", "season from fragment $season")
         adapter.clearItems()
