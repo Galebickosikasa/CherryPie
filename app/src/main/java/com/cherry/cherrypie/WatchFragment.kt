@@ -18,13 +18,16 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.jsoup.Jsoup
 
-class WatchFragment : Fragment() {
+class WatchFragment : Fragment(), View.OnClickListener {
     private lateinit var container : ViewGroup
     private lateinit var youtubePlayerView : YouTubePlayerView
     private lateinit var btn : Button
     private lateinit var database : FirebaseDatabase
     private lateinit var databaseReference : DatabaseReference
     private lateinit var description : TextView
+    private lateinit var url : String
+    private var s = -1
+    private var e = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.container = container!!
@@ -45,6 +48,8 @@ class WatchFragment : Fragment() {
         val sp = activity!!.getSharedPreferences ("video", Context.MODE_PRIVATE)
         val season = sp.getInt ("season", -1)
         val episode = sp.getInt ("episode", -1)
+        s = season
+        e = episode
         database = FirebaseDatabase.getInstance ()
         databaseReference = database.getReference ("${Constants.VIDEO_PATH}${Constants.SEASONS_PATH}$season/$episode")
         databaseReference.addListenerForSingleValueEvent (object : ValueEventListener {
@@ -53,21 +58,19 @@ class WatchFragment : Fragment() {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 val item = snapshot.getValue (VideoKek::class.java)
-                btn.setOnClickListener {
-                    val browserIntent = Intent (Intent.ACTION_VIEW, Uri.parse (item!!.full_url))
-                    startActivity (browserIntent)
-                }
+                url = item!!.full_url
+                btn.setOnClickListener (this@WatchFragment)
 
                 youtubePlayerView.addYouTubePlayerListener (object : AbstractYouTubePlayerListener () {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         super.onReady(youTubePlayer)
-                        val videoID = item!!.trailer
+                        val videoID = item.trailer
                         youTubePlayer.loadVideo (videoID, 0F)
                     }
                 })
 
                 val t = Thread (Runnable {
-                    val doc = Jsoup.connect (item!!.full_url).get ()
+                    val doc = Jsoup.connect (item.full_url).get ()
                     val text = doc.getElementsByAttributeValue ("itemprop", "description").text ()
                     Log.e ("kek", text)
                     activity!!.runOnUiThread { description.text = text }
@@ -78,4 +81,12 @@ class WatchFragment : Fragment() {
 
     }
 
+    override fun onClick(v: View?) {
+        var num = ((activity as MainActivity).progressMap[s.toString ()]!! as Int)
+        num = num or (1 shl e)
+        (activity as MainActivity).progressMap[s.toString ()] = num
+        (activity as MainActivity).updProgress ()
+        val browserIntent = Intent (Intent.ACTION_VIEW, Uri.parse (url))
+        startActivity (browserIntent)
+    }
 }

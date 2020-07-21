@@ -3,15 +3,13 @@ package com.cherry.cherrypie
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.theartofdev.edmodo.cropper.CropImage
 
 class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAdapter.OnEpisodeClick {
@@ -22,8 +20,10 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
     private lateinit var episodeFragment : EpisodeFragment
     private lateinit var watchFragment : WatchFragment
     private lateinit var mAuth : FirebaseAuth
+    private lateinit var database : FirebaseDatabase
+    private lateinit var databaseReference : DatabaseReference
     private var user : FirebaseUser? = null
-    var progressMap : HashMap<Int, Int> = hashMapOf ()
+    var progressMap : HashMap<String, Any> = hashMapOf ()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate (savedInstanceState)
@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         profileFragment = ProfileFragment ()
         episodeFragment = EpisodeFragment ()
         watchFragment = WatchFragment ()
+        database = FirebaseDatabase.getInstance ()
         supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
         mAuth = FirebaseAuth.getInstance ()
         user = mAuth.currentUser
@@ -65,19 +66,24 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
     }
 
     private fun syncProgress () {
-        val userID = user!!.uid
-        val ref = FirebaseDatabase.getInstance ().getReference ("${Constants.VIDEO_PATH}${Constants.PROGRESS_PATH}$userID")
-        ref.addListenerForSingleValueEvent (object : ValueEventListener {
+        databaseReference = database.getReference (Constants.VIDEO_PATH + Constants.PROGRESS_PATH + user!!.uid)
+        databaseReference.addListenerForSingleValueEvent (object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
-                    progressMap = snapshot.value as HashMap<Int, Int>
+                    Log.e ("kek", snapshot.toString ())
+                    progressMap = snapshot.value as HashMap<String, Any>
                 } catch (e : TypeCastException) {
-                    for (i in 1..4) progressMap[i] = 0
+                    for (i in 1..4) progressMap[i.toString ()] = 0
                 }
             }
         })
+    }
+
+    fun updProgress () {
+        databaseReference = database.getReference (Constants.VIDEO_PATH + Constants.PROGRESS_PATH + user!!.uid)
+        databaseReference.setValue (progressMap)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
