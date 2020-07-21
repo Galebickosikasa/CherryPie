@@ -3,7 +3,6 @@ package com.cherry.cherrypie
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -72,12 +71,10 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 try {
-                    Log.e ("kek", snapshot.toString ())
                     progressMap = snapshot.value as ArrayList<Int>
                 } catch (e : TypeCastException) {
-                    for (i in 1..4) progressMap.add (0)
+                    for (i in 0..5) progressMap.add (0)
                 }
-                Log.e ("kek", progressMap.toString ())
             }
         })
     }
@@ -112,30 +109,14 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
     }
 
     override fun onSeasonClick(num: Int) {
-//        Log.e ("kek", "season $num")
         supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, episodeFragment).commit ()
         val sp = getSharedPreferences ("video", Context.MODE_PRIVATE)
         sp.edit ().putInt ("season", num + 1).apply ()
     }
 
     override fun onEpisodeClick(num: Int) {
-//        Log.e("kek", "episode $num")
         supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, watchFragment).commit ()
         val sp = getSharedPreferences ("video", Context.MODE_PRIVATE)
         sp.edit ().putInt ("episode", num + 1).apply ()
     }
 }
-
-/*
-val ref : DatabaseReference = FirebaseDatabase.getInstance ().getReference ("${Constants.VIDEO_PATH}${Constants.PROGRESS_PATH}$currentUserID")
-                    ref.setValue (progressMap).addOnCompleteListener { it1 ->
-                        it1.addOnSuccessListener {
-                            Toast.makeText(this, getString(R.string.registration_is_successful), Toast.LENGTH_SHORT).show()
-                            finish()
-                            Log.e ("kek", it.toString ())
-                        }.addOnFailureListener {
-                            Log.e("kek", it.toString())
-                            Toast.makeText(this, getString(R.string.fail_message), Toast.LENGTH_SHORT).show()
-                        }
-                    }
- */

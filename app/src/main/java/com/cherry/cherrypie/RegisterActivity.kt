@@ -86,9 +86,6 @@ class RegisterActivity : AppCompatActivity() {
         userMap["email"] = userEmail
         userMap["image"] = Constants.PIKACHU_IMAGE_PATH
 
-        val progressMap = HashMap<Int, Any> ()
-        for (i in 1..4) progressMap[i] = 0
-
         usersReference.child(currentUserID).setValue(userMap).addOnCompleteListener { task ->
                 task.addOnSuccessListener {
                     Toast.makeText (this, getString(R.string.registration_is_successful), Toast.LENGTH_SHORT).show()
