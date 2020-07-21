@@ -8,4 +8,5 @@ object Constants {
     const val PHOTO_PATH = "ProfileImage/"
     const val VIDEO_PATH = "Videos/"
     const val SEASONS_PATH = "Seasons/"
+    const val PROGRESS_PATH = "Progress/"
 }

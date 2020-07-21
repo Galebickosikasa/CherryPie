@@ -11,4 +11,8 @@
         <item name="cornerSize">5%</item>
     </style>
 
+    <style name="ProgressTheme" >
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

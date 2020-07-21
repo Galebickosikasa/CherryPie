@@ -19,7 +19,6 @@ import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_login.*
 import java.io.ByteArrayOutputStream
 import java.net.URL
-import kotlin.collections.HashMap
 
 
 class LoginActivity : AppCompatActivity() {
@@ -58,18 +57,15 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
         } else {
 
-            val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
+            val mAuth: FirebaseAuth = FirebaseAuth.getInstance ()
 
-            mAuth.signInWithEmailAndPassword(userEmail, userPassword)
-                .addOnCompleteListener { task ->
+            mAuth.signInWithEmailAndPassword(userEmail, userPassword).addOnCompleteListener { task ->
                     task.addOnSuccessListener {
 
                         val user = mAuth.currentUser!!
                         val database = FirebaseDatabase.getInstance()
-                        val databaseReference =
-                            database.getReference(Constants.USERS_PATH + user.uid)
-                        databaseReference.addListenerForSingleValueEvent(object :
-                            ValueEventListener {
+                        val databaseReference = database.getReference(Constants.USERS_PATH + user.uid)
+                        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onCancelled(error: DatabaseError) {}
 
                             override fun onDataChange(snapshot: DataSnapshot) {
@@ -77,19 +73,16 @@ class LoginActivity : AppCompatActivity() {
                                     val userInfo = snapshot.value as HashMap<String, Any>
                                     val username = userInfo["username"] as String
                                     val url = URL(userInfo["image"] as String)
-                                    val bitmap = BitmapFactory.decodeStream(
-                                        url.openConnection().getInputStream()
-                                    )
-                                    val sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE)
-                                    sp.edit().putString("username", username)
-                                        .putString("image", encodeTobase64(bitmap)).apply()
-                                    finish()
+                                    val bitmap = BitmapFactory.decodeStream (url.openConnection ().getInputStream ())
+                                    val sp = getSharedPreferences ("userInfo", Context.MODE_PRIVATE)
+                                    sp.edit ().putString ("username", username).putString ("image", encodeTobase64 (bitmap)).apply ()
+                                    finish ()
                                 })
-                                t.start()
+                                t.start ()
                             }
                         })
 
-                        Toast.makeText(this, "Вход выполнен успешно )", Toast.LENGTH_SHORT).show()
+                        Toast.makeText (this, "Вход выполнен успешно )", Toast.LENGTH_SHORT).show ()
                     }.addOnFailureListener {
                         when (it) {
                             is FirebaseAuthInvalidUserException -> {

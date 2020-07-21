@@ -18,7 +18,6 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 import org.jsoup.Jsoup
 
-
 class WatchFragment : Fragment() {
     private lateinit var container : ViewGroup
     private lateinit var youtubePlayerView : YouTubePlayerView

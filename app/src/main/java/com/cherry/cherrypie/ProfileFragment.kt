@@ -13,6 +13,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -44,12 +45,9 @@ class ProfileFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var userInfo: HashMap<String, Any>
+    private lateinit var progress1 : ProgressBar
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.container = container!!
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -59,6 +57,7 @@ class ProfileFragment : Fragment() {
         userImage = container.findViewById(R.id.userImage)
         username = container.findViewById(R.id.username)
         userEmail = container.findViewById(R.id.email)
+        progress1 = container.findViewById (R.id.progress_1)
         mAuth = FirebaseAuth.getInstance()
         user = mAuth.currentUser!!
         storage = FirebaseStorage.getInstance()
@@ -72,6 +71,9 @@ class ProfileFragment : Fragment() {
                 userInfo = snapshot.value as HashMap<String, Any>
             }
         })
+
+        progress1.max = 10
+        progress1.progress = 3
 
         val sp = activity!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val nickname = sp.getString("username", "")
