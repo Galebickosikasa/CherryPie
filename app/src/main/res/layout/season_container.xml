@@ -11,20 +11,26 @@
         android:id="@+id/season_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/shapeableImageView"
-        tools:layout_editor_absoluteX="5dp" />
+        app:shapeAppearanceOverlay="@style/shapeableImageView" />
 
     <ProgressBar
         android:id="@+id/season_progress"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/progress_bar_style"
         android:indeterminate="false"
         android:progressTint="@color/ultraLightGrey"
         android:theme="@style/ProgressTheme"
-        app:layout_constraintTop_toBottomOf="@+id/season_image"
-        tools:layout_editor_absoluteX="-7dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/season_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

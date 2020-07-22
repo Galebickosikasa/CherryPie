@@ -45,10 +45,6 @@ class ProfileFragment : Fragment() {
     private lateinit var database: FirebaseDatabase
     private lateinit var databaseReference: DatabaseReference
     private lateinit var userInfo: HashMap<String, Any>
-    private lateinit var progress1 : ProgressBar
-    private lateinit var progress2 : ProgressBar
-    private lateinit var progress3 : ProgressBar
-    private lateinit var progress4 : ProgressBar
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         this.container = container!!
@@ -61,10 +57,6 @@ class ProfileFragment : Fragment() {
         userImage = container.findViewById (R.id.userImage)
         username = container.findViewById (R.id.username)
         userEmail = container.findViewById(R.id.email)
-        progress1 = container.findViewById (R.id.progress_1)
-        progress2 = container.findViewById (R.id.progress_2)
-        progress3 = container.findViewById (R.id.progress_3)
-        progress4 = container.findViewById (R.id.progress_4)
         mAuth = FirebaseAuth.getInstance ()
         user = mAuth.currentUser!!
         storage = FirebaseStorage.getInstance ()
@@ -78,17 +70,6 @@ class ProfileFragment : Fragment() {
                 userInfo = snapshot.value as HashMap<String, Any>
             }
         })
-
-        progress1.max = 10
-        progress2.max = 12
-        progress3.max = 10
-        progress4.max = 13
-
-        val hm = (activity as MainActivity).progressMap
-        progress1.progress = hm[1].countOneBits ()
-        progress2.progress = hm[2].countOneBits ()
-        progress3.progress = hm[3].countOneBits ()
-        progress4.progress = hm[4].countOneBits ()
 
         val sp = activity!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
         val nickname = sp.getString("username", "")

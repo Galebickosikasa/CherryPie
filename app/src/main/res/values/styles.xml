@@ -7,11 +7,11 @@
     </style>
 
     <style name="shapeableImageView" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">5%</item>
+        <item name="android:topRightRadius">12dp</item>
+        <item name="android:topLeftRadius">12dp</item>
     </style>
 
-    <style name="ProgressTheme" >
+    <style name="ProgressTheme">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
 
