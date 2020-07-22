@@ -45,44 +45,60 @@
         android:textColor="@color/ultraLightGrey"
         app:strokeColor="@color/lightGrey" />
 
-    <ProgressBar
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/progress_1"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:theme="@style/ProgressTheme"
-        android:indeterminate="false"
-        android:background="@color/white" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/progress_2"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:theme="@style/ProgressTheme"
-        android:indeterminate="false"
-        android:background="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/progress"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/ultraLightGrey" />
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/progress_3"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:theme="@style/ProgressTheme"
-        android:indeterminate="false"
-        android:background="@color/white" />
+        <ProgressBar
+            android:id="@+id/progress_1"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/progress_bar_style"
+            android:indeterminate="false"
+            android:progressTint="@color/ultraLightGrey"
+            android:theme="@style/ProgressTheme" />
 
-    <ProgressBar
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/progress_4"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:theme="@style/ProgressTheme"
-        android:indeterminate="false"
-        android:background="@color/white" />
+        <ProgressBar
+            android:id="@+id/progress_2"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/progress_bar_style"
+            android:indeterminate="false"
+            android:progressTint="@color/ultraLightGrey"
+            android:theme="@style/ProgressTheme" />
+
+        <ProgressBar
+            android:id="@+id/progress_3"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/progress_bar_style"
+            android:indeterminate="false"
+            android:theme="@style/ProgressTheme" />
+
+        <ProgressBar
+            android:id="@+id/progress_4"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/progress_bar_style"
+            android:indeterminate="false"
+            android:theme="@style/ProgressTheme" />
+    </LinearLayout>
 
 </LinearLayout>

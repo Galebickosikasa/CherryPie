@@ -11,4 +11,5 @@
     <string name="fail_message">Что-то пошло не так(</string>
     <string name="uploading_is_successful">Фотография успешно загружена!</string>
     <string name="full_version">Полная версия</string>
+    <string name="progress">Progress</string>
 </resources>
