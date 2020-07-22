@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 
@@ -42,6 +44,7 @@ class EpisodeAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     inner class EpisodeHolder internal constructor(itemView: View) : ViewHolder(itemView), View.OnClickListener {
         private val tv: TextView = itemView.findViewById (R.id.episode_title)
+        private val used : ImageView = itemView.findViewById (R.id.episode_used)
 
         override fun onClick(v: View?) {
             val position = adapterPosition
@@ -50,6 +53,7 @@ class EpisodeAdapter(context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
         fun bind(item: EpisodeKek) {
             tv.text = "${item.num} серия"
+            used.isVisible = item.used
         }
 
         init {

@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_login.*
 import java.io.ByteArrayOutputStream
 import java.net.URL
 
-
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
                         })
 
                         Toast.makeText (this, "Вход выполнен успешно )", Toast.LENGTH_SHORT).show ()
+                        Log.e ("kek", "log-in")
                     }.addOnFailureListener {
                         when (it) {
                             is FirebaseAuthInvalidUserException -> {

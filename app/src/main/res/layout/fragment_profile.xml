@@ -87,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:background="@drawable/progress_bar_style"
+            android:progressTint="@color/ultraLightGrey"
             android:indeterminate="false"
             android:theme="@style/ProgressTheme" />
 
@@ -98,6 +99,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/progress_bar_style"
             android:indeterminate="false"
+            android:progressTint="@color/ultraLightGrey"
             android:theme="@style/ProgressTheme" />
     </LinearLayout>
 

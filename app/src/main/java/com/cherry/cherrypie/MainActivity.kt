@@ -30,16 +30,19 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         setContentView (R.layout.activity_main)
         bottomNav = findViewById (R.id.bottom_nav)
         cameraFragment = CameraFragment ()
-        videoFragment = VideoFragment ()
+//        videoFragment = VideoFragment ()
         profileFragment = ProfileFragment ()
         episodeFragment = EpisodeFragment ()
         watchFragment = WatchFragment ()
         database = FirebaseDatabase.getInstance ()
-        supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
+        for (i in 0..4) progressMap.add (0)
         mAuth = FirebaseAuth.getInstance ()
         user = mAuth.currentUser
-        for (i in 0..4) progressMap.add (0)
         if (user != null) syncProgress ()
+        else {
+            videoFragment = VideoFragment ()
+            supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
+        }
 
         bottomNav.setOnNavigationItemSelectedListener {
             var fragment: Fragment? = null
@@ -77,6 +80,8 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
                 } catch (e : TypeCastException) {
                     Log.e ("kek", e.toString ())
                 }
+                videoFragment = VideoFragment ()
+                supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
             }
         })
     }
@@ -121,4 +126,5 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         val sp = getSharedPreferences ("video", Context.MODE_PRIVATE)
         sp.edit ().putInt ("episode", num + 1).apply ()
     }
+
 }

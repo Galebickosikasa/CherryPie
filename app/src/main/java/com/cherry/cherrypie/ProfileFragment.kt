@@ -58,18 +58,18 @@ class ProfileFragment : Fragment() {
     @ExperimentalStdlibApi
     override fun onStart() {
         super.onStart()
-        userImage = container.findViewById(R.id.userImage)
-        username = container.findViewById(R.id.username)
+        userImage = container.findViewById (R.id.userImage)
+        username = container.findViewById (R.id.username)
         userEmail = container.findViewById(R.id.email)
         progress1 = container.findViewById (R.id.progress_1)
         progress2 = container.findViewById (R.id.progress_2)
         progress3 = container.findViewById (R.id.progress_3)
         progress4 = container.findViewById (R.id.progress_4)
-        mAuth = FirebaseAuth.getInstance()
+        mAuth = FirebaseAuth.getInstance ()
         user = mAuth.currentUser!!
-        storage = FirebaseStorage.getInstance()
-        database = FirebaseDatabase.getInstance()
-        databaseReference = database.getReference(Constants.USERS_PATH + user.uid)
+        storage = FirebaseStorage.getInstance ()
+        database = FirebaseDatabase.getInstance ()
+        databaseReference = database.getReference (Constants.USERS_PATH + user.uid)
 
         databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(error: DatabaseError) {}
