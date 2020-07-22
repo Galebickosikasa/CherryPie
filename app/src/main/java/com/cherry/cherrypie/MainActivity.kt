@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         super.onCreate (savedInstanceState)
         setContentView (R.layout.activity_main)
         bottomNav = findViewById (R.id.bottom_nav)
+        bottomNav.isVisible = false
         cameraFragment = CameraFragment ()
 //        videoFragment = VideoFragment ()
         profileFragment = ProfileFragment ()
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         else {
             videoFragment = VideoFragment ()
             supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
+            bottomNav.isVisible = true
         }
 
         bottomNav.setOnNavigationItemSelectedListener {
@@ -82,6 +85,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
                 }
                 videoFragment = VideoFragment ()
                 supportFragmentManager.beginTransaction ().replace (R.id.fragment_container, videoFragment).commit ()
+                bottomNav.isVisible = true
             }
         })
     }
