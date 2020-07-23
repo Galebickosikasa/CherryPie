@@ -33,4 +33,14 @@
         android:textColor="@color/ultraLightGrey"
         app:strokeColor="@color/lightGrey" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/i_need_chat"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/open_chat"
+        android:textColor="@color/ultraLightGrey"
+        app:strokeColor="@color/lightGrey" />
+
 </LinearLayout>

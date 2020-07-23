@@ -19,6 +19,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import org.jsoup.Jsoup
 
 class WatchFragment : Fragment(), View.OnClickListener {
+    private lateinit var btnChat : Button
     private lateinit var container : ViewGroup
     private lateinit var youtubePlayerView : YouTubePlayerView
     private lateinit var btn : Button
@@ -42,6 +43,7 @@ class WatchFragment : Fragment(), View.OnClickListener {
 
     override fun onStart() {
         super.onStart()
+        btnChat = container.findViewById(R.id.i_need_chat)
         youtubePlayerView = container.findViewById (R.id.youtube_player)
         btn = container.findViewById (R.id.i_need_full)
         description = container.findViewById (R.id.episode_description)
@@ -50,6 +52,12 @@ class WatchFragment : Fragment(), View.OnClickListener {
         val episode = sp.getInt ("episode", -1)
         s = season
         e = episode
+        btnChat.setOnClickListener {
+            val toChat = Intent(context, ChatActivity::class.java)
+            toChat.putExtra("season", s)
+            toChat.putExtra("episode", e)
+            startActivity(toChat)
+        }
         database = FirebaseDatabase.getInstance ()
         databaseReference = database.getReference ("${Constants.VIDEO_PATH}${Constants.SEASONS_PATH}$season/$episode")
         databaseReference.addListenerForSingleValueEvent (object : ValueEventListener {
