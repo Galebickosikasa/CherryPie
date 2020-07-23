@@ -13,7 +13,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -51,7 +50,6 @@ class ProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    @ExperimentalStdlibApi
     override fun onStart() {
         super.onStart()
         userImage = container.findViewById (R.id.userImage)
@@ -96,7 +94,7 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
     }
 
-    fun encodeTobase64(image: Bitmap): String? {
+    private fun encodeTobase64(image: Bitmap): String? {
         val baos = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val b = baos.toByteArray()
@@ -105,7 +103,7 @@ class ProfileFragment : Fragment() {
         return imageEncoded
     }
 
-    fun decodeBase64(input: String?): Bitmap? {
+    private fun decodeBase64(input: String?): Bitmap? {
         val decodedByte: ByteArray = Base64.decode(input, 0)
         return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.size)
     }
@@ -158,19 +156,14 @@ class ProfileFragment : Fragment() {
                     val sp = activity!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
                     sp.edit().putString("image", encodeTobase64(bitmap)).apply()
                 })
-                t.start()
+                t.start ()
 
                 databaseReference.setValue(userInfo).addOnSuccessListener {
-                    Glide.with(activity!!).load(url).into(userImage)
-                    Toast.makeText(
-                        activity,
-                        getString(R.string.uploading_is_successful),
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Glide.with (activity!!).load (url).into (userImage)
+                    Toast.makeText (activity, getString(R.string.uploading_is_successful), Toast.LENGTH_SHORT).show ()
                 }.addOnFailureListener {
                     Log.e("kek", it.toString())
-                    Toast.makeText(activity, getString(R.string.fail_message), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText (activity, getString(R.string.fail_message), Toast.LENGTH_SHORT).show ()
                 }
             }
         }

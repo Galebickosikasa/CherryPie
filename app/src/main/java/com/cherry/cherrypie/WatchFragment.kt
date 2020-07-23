@@ -76,14 +76,16 @@ class WatchFragment : Fragment(), View.OnClickListener {
                         youTubePlayer.loadVideo (videoID, 0F)
                     }
                 })
-
-                val t = Thread (Runnable {
-                    val doc = Jsoup.connect (item.full_url).get ()
-                    val text = doc.getElementsByAttributeValue ("itemprop", "description").text ()
-                    Log.e ("kek", text)
-                    activity!!.runOnUiThread { description.text = text }
-                })
-                t.start ()
+                    val t = Thread(Runnable {
+                        val doc = Jsoup.connect(item.full_url).get()
+                        val text = doc.getElementsByAttributeValue("itemprop", "description").text()
+                        try {
+                            activity!!.runOnUiThread { description.text = text }
+                        } catch (e : NullPointerException) {
+                            Log.e ("kek", "ooops")
+                        }
+                    })
+                    t.start()
             }
         })
 

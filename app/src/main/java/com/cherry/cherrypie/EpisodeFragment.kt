@@ -27,11 +27,11 @@ class EpisodeFragment : Fragment() {
         return inflater.inflate (R.layout.fragment_episode, container, false)
     }
 
-    fun bit (msk : Int, i : Int) : Int {
+    private fun bit (msk : Int, i : Int) : Int {
         return (msk shr i) and 1
     }
 
-    fun Int.toBoolean () : Boolean {
+    private fun Int.toBoolean () : Boolean {
         if (this == 0) return false
         return true
     }

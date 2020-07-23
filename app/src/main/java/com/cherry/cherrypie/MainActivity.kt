@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
         bottomNav = findViewById (R.id.bottom_nav)
         bottomNav.isVisible = false
         cameraFragment = CameraFragment ()
-//        videoFragment = VideoFragment ()
         profileFragment = ProfileFragment ()
         episodeFragment = EpisodeFragment ()
         watchFragment = WatchFragment ()
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity(), SeasonAdapter.OnSeasonClick, EpisodeAd
                     fragment = videoFragment
                 }
                 R.id.camera -> {
-                    startActivity(Intent(this@MainActivity, ArActivity::class.java))
+                    startActivity (Intent (Constants.AR_ACTIVITY_PATH))
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.profile -> {
