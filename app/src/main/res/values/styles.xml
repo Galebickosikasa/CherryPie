@@ -5,6 +5,7 @@
         <item name="android:windowBackground">@drawable/splash_image</item>
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">#ffffff</item>
+        <item name="colorPrimaryDark">@color/mediumGrey</item>
     </style>
 
     <style name="shapeableImageView" parent="">

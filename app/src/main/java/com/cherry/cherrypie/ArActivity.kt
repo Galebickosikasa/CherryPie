@@ -347,7 +347,7 @@ class ArActivity : AppCompatActivity(), View.OnClickListener {
         try {
             FileOutputStream(filename).use { outputStream ->
                 ByteArrayOutputStream().use { outputData ->
-                    bitmap.compress(CompressFormat.JPEG, 85, outputData)
+                    bitmap.compress(CompressFormat.PNG, 50, outputData)
                     outputData.writeTo(outputStream)
                     outputStream.flush()
                     outputStream.close()
